@@ -7,7 +7,7 @@ public class AddProductDto
     public required string Description { get; set; }
     public required string Image { get; set; }
     public required string Category { get; set; }
-    public int Price { get; set; }
+    public float Price { get; set; }
     public int Quantity { get; set; }
     public required string InternalReference { get; set; }
     public int ShellId { get; set; }
