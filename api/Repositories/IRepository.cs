@@ -7,6 +7,6 @@ public interface IRepository<T> where T : IEntityId
     void Add(T item);
     T Update(T item);
     IQueryable<T> GetAll();
-    bool Save();
     void Delete(T item);
+    bool Save();
 }
