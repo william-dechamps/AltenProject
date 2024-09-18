@@ -1,10 +1,10 @@
 namespace AltenProject.Helpers;
-using AltenProject.Repositories;
+using AltenProject.Services;
 
 public static class ServicesExtension
 {
     public static void AddServices(this IServiceCollection services)
     {
-        services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IProductService, ProductService>();
     }
 }
