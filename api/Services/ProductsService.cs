@@ -68,7 +68,7 @@ public class ProductService : IProductService
     /// <exception cref="InputInvalidException"></exception>
     public ProductEntity GetProductEntityById(int productId)
     {
-        ProductEntity? product = GetProductsQueryable().Where(product => product.Id == productId).FirstOrDefault()
+        ProductEntity? product = _productRepository.GetSingle(productId)
             ?? throw new InputInvalidException("error_unknown_product");
         return product;
     }

@@ -3,7 +3,7 @@ using AltenProject.Entities;
 
 public interface IProductRepository : IRepository<ProductEntity>
 {
-
+    
 }
 
 public class ProductRepository : IProductRepository
@@ -23,7 +23,7 @@ public class ProductRepository : IProductRepository
     /// Get a single product by id
     /// </summary>
     /// <param name="id"></param>
-    /// <returns></returns>
+    /// <returns>Product entity</returns>
     public ProductEntity? GetSingle(int id)
     {
         return _altenProjectDbContext.Products.Where(product => product.Id == id).FirstOrDefault();
@@ -42,7 +42,7 @@ public class ProductRepository : IProductRepository
     /// Update a product
     /// </summary>
     /// <param name="product"></param>
-    /// <returns></returns>
+    /// <returns>Product entity updated</returns>
     public ProductEntity Update(ProductEntity product)
     {
         _altenProjectDbContext.Products.Update(product);
@@ -52,7 +52,7 @@ public class ProductRepository : IProductRepository
     /// <summary>
     /// Get all products
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Products Queryable</returns>
     public IQueryable<ProductEntity> GetAll()
     {
         return _altenProjectDbContext.Products;
