@@ -40,3 +40,6 @@ bld/
 msbuild.log
 msbuild.err
 msbuild.wrn
+
+# Docker DB
+db_data/
