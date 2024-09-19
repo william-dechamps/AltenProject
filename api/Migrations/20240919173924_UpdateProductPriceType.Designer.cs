@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AltenProject.Migrations
 {
     [DbContext(typeof(AltenProjectDbContext))]
-    [Migration("20240918130145_UpdateProductPriceType")]
+    [Migration("20240919173924_UpdateProductPriceType")]
     partial class UpdateProductPriceType
     {
         /// <inheritdoc />
