@@ -1,0 +1,31 @@
+<h1 class="text-center">Panier</h1>
+<p-dataView #dv [value]="productsInCart">
+    <ng-template pTemplate="list" let-productsInCart>
+        <div class="grid">
+            @for (product of productsInCart; track product) {
+            <p-card class="col-12">
+                <div class="flex flex-column sm:flex-row p-4 gap-3">
+                    <div class="md:w-8rem relative">
+                        <img class="mx-auto w-full" [src]="'/assets/images/' + product.product.image"
+                            [alt]="product.product.name" />
+                    </div>
+                    <div
+                        class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4">
+                        <div class="text-lg font-medium text-900 mt-2">{{ product.product.name }}</div>
+                    </div>
+
+                    <div class="flex flex-column md:align-items-end gap-5">
+                        <span class="text-xl font-semibold text-900">{{ product.product.price * product.quantity
+                            }}€</span>
+                        <div class="flex flex-row-reverse md:flex-row gap-2">
+                            <p-button icon="pi pi-trash" (onClick)="removeFromCart(product)"
+                                class="flex-auto md:flex-initial white-space-nowrap" severity="danger" />
+                        </div>
+                        <div class="text-sm font-medium text-900">{{ 'Quantité : ' + product.quantity }}</div>
+                    </div>
+                </div>
+            </p-card>
+            }
+        </div>
+    </ng-template>
+</p-dataView>

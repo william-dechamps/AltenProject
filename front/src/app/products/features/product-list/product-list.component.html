@@ -1,0 +1,34 @@
+<h1 class="text-center">Liste des produits</h1>
+
+<p-dataView #dv [value]="products()">
+    <ng-template pTemplate="list" let-products>
+        <div class="grid">
+            @for (product of products; track product) {
+            <p-card class="flex-wrap col-6 sm:col-4 md:col-2">
+                <ng-template pTemplate="header">
+                    <img [src]="'/assets/images/' + product.image" [alt]="product.name" />
+                </ng-template>
+
+                <div class="text-lg font-medium text-900 mt-2">{{ product.name }}</div>
+
+                <div class="flex align-items-center justify-content-between mt-2">
+                    <span class="font-medium text-secondary text-sm">{{ product.category }}</span>
+                    <p-tag
+                        [value]="product.quantity === 0 ? InventoryStatus.OUTOFSTOCK : product.quantity < 3 ? InventoryStatus.LOWSTOCK : InventoryStatus.INSTOCK"
+                        [severity]="product.quantity === 0 ? 'danger' : product.quantity < 3 ? 'warning' : 'success' " />
+                </div>
+
+                <ng-template pTemplate="footer">
+                    <div class="flex align-items-center justify-content-between">
+                        <div class="text-xl font-medium text-800 mt-2">{{ product.price }}€</div>
+
+                        <p-button icon="pi pi-shopping-cart" (onClick)="addToCart(product)"
+                            [disabled]="product.quantity === 0 ? true : false" />
+
+                    </div>
+                </ng-template>
+            </p-card>
+            }
+        </div>
+    </ng-template>
+</p-dataView>

@@ -1,13 +1,28 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {
+  Component,
+  inject,
+} from "@angular/core";
+import { RouterModule } from "@angular/router";
+import { SplitterModule } from 'primeng/splitter';
+import { ToolbarModule } from 'primeng/toolbar';
+import { PanelMenuComponent } from "./shared/ui/panel-menu/panel-menu.component";
+import { Observable } from "rxjs";
+import { CartService } from "./cart/cart.service";
+import { AsyncPipe } from "@angular/common";
 
 @Component({
-  selector: 'app-root',
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"],
   standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  imports: [RouterModule, SplitterModule, ToolbarModule, PanelMenuComponent, AsyncPipe],
 })
 export class AppComponent {
-  title = 'AltenProject';
+  private readonly cartService = inject(CartService);
+  title = "ALTEN SHOP";
+  cartItems$!: Observable<number>;
+
+  ngOnInit(): void {
+    this.cartItems$ = this.cartService.cart$;
+  }
 }
