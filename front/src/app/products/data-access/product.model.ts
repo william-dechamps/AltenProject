@@ -9,8 +9,14 @@ export interface Product {
     quantity: number;
     internalReference: string;
     shellId: number;
-    inventoryStatus: "INSTOCK" | "LOWSTOCK" | "OUTOFSTOCK";
+    inventoryStatus: InventoryStatus;
     rating: number;
     createdAt: number;
     updatedAt: number;
+}
+
+export enum InventoryStatus {
+    INSTOCK = "INSTOCK",
+    LOWSTOCK = "LOWSTOCK",
+    OUTOFSTOCK = "OUTOFSTOCK"
 }
