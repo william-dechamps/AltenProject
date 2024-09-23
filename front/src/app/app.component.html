@@ -8,7 +8,7 @@
     <div class="p-toolbar-group-end header__cart">
         <ul>
             <li>
-                <a [routerLink]="['/shopping/cart']" routerLinkActive="router-link-active">
+                <a [routerLink]="['/cart']" routerLinkActive="router-link-active">
                     <i class="pi pi-shopping-cart"></i> <span>{{cartItems$ | async}}</span>
                 </a>
             </li>
@@ -22,7 +22,7 @@
         </div>
     </ng-template>
     <ng-template pTemplate>
-        <div class="w-full app-content">
+        <div class="w-full app-content overflow-scroll">
             <router-outlet></router-outlet>
         </div>
     </ng-template>
