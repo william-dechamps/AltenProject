@@ -8,7 +8,6 @@ import { CardModule } from "primeng/card";
 import { DataViewModule } from "primeng/dataview";
 import { ButtonModule } from "primeng/button";
 import { CartItem } from "./data-access/cart.model";
-import { BehaviorSubject } from "rxjs";
 
 @Component({
     selector: "cart",
