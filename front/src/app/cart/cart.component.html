@@ -1,5 +1,5 @@
 <h1 class="text-center">Panier</h1>
-<p-dataView #dv [value]="productsInCart">
+<p-dataView #dv [value]="(productsInCart | async) || []">
     <ng-template pTemplate="list" let-productsInCart>
         <div class="grid">
             @for (product of productsInCart; track product) {

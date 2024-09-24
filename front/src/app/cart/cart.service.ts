@@ -9,9 +9,9 @@ import { Cart, CartItem } from "./data-access/cart.model";
 export class CartService {
     private cart: Cart = { cartItems: [] };
     private cartSubject = new BehaviorSubject<number>(0);
-    private _cart = new BehaviorSubject<CartItem[]>([]);
-    cartItems$ = this._cart.asObservable();
-    cart$: Observable<number> = this.cartSubject.asObservable();
+    private _cart = new BehaviorSubject<CartItem[]>(this.cart.cartItems);
+    cart$ = this._cart.asObservable();
+    cartSubject$: Observable<number> = this.cartSubject.asObservable();
 
     addToCart(product: Product) {
         // Decrease the product quantity
@@ -23,14 +23,14 @@ export class CartService {
 
     updateCart(product: Product, change: number) {
         // Find the product in the cart
-        const existingItem = this.cart?.cartItems.find(
+        const existingItem = this.cart.cartItems.find(
             (cart) => cart.product.id === product.id
         );
 
         // If the product is already in the cart
         if (existingItem) {
             // Update the quantity of the product in the cart
-            existingItem.quantity = existingItem.quantity + change;
+            existingItem.quantity += change;
 
             // If the quantity is 0, remove the product from the cart
             if (existingItem.quantity === 0) {
@@ -52,7 +52,7 @@ export class CartService {
         this._cart.next(this.cart.cartItems);
     }
 
-    getCart(): Cart {
-        return this.cart;
+    getCartItems(): Observable<CartItem[]> {
+        return this.cart$;
     }
 }

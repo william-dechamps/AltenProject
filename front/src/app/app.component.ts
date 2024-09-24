@@ -1,6 +1,7 @@
 import {
   Component,
   inject,
+  OnInit,
 } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { SplitterModule } from 'primeng/splitter';
@@ -17,12 +18,12 @@ import { AsyncPipe } from "@angular/common";
   standalone: true,
   imports: [RouterModule, SplitterModule, ToolbarModule, PanelMenuComponent, AsyncPipe],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   private readonly cartService = inject(CartService);
   title = "ALTEN SHOP";
   cartItems$!: Observable<number>;
 
   ngOnInit(): void {
-    this.cartItems$ = this.cartService.cart$;
+    this.cartItems$ = this.cartService.cartSubject$;
   }
 }
