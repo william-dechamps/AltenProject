@@ -17,11 +17,27 @@ export class CartService {
         // Decrease the product quantity
         product.quantity -= 1;
 
-        // Add the product to the cart
-        this.updateCart(product, 1);
+        // Find the product in the cart
+        const existingItem = this.cart.cartItems.find(
+            (cart) => cart.product.id === product.id
+        );
+
+        // If the product is already in the cart
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            // If the product is not in the cart, add it with a quantity of 1
+            this.cart.cartItems.push({ product, quantity: 1 });
+        }
+
+        // Emit the updated cart items
+        this._cart.next(this.cart.cartItems);
+
+        // Emit the new length of the cart
+        this.cartSubject.next(this.cart.cartItems.length);
     }
 
-    updateCart(product: Product, change: number) {
+    updateCart(product: Product, newQuantity: number) {
         // Find the product in the cart
         const existingItem = this.cart.cartItems.find(
             (cart) => cart.product.id === product.id
@@ -30,26 +46,21 @@ export class CartService {
         // If the product is already in the cart
         if (existingItem) {
             // Update the quantity of the product in the cart
-            existingItem.quantity += change;
+            existingItem.quantity = newQuantity;
 
             // If the quantity is 0, remove the product from the cart
-            if (existingItem.quantity === 0) {
+            if (existingItem.quantity <= 0) {
                 this.cart.cartItems = this.cart.cartItems.filter(
                     (cart) => cart.product.id !== product.id
                 );
             }
-
-            // Emit the new length of the cart
-            this.cartSubject.next(this.cart.cartItems.length);
-        } else {
-            // If the product is not in the cart, add it
-            this.cart.cartItems.push({ product, quantity: change });
-
-            // Emit the new length of the cart
-            this.cartSubject.next(this.cart.cartItems.length);
         }
 
+        // Emit the updated cart items
         this._cart.next(this.cart.cartItems);
+
+        // Emit the new length of the cart
+        this.cartSubject.next(this.cart.cartItems.length);
     }
 
     getCartItems(): Observable<CartItem[]> {
