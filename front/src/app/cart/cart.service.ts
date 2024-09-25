@@ -45,6 +45,33 @@ export class CartService {
 
         // If the product is already in the cart
         if (existingItem) {
+            const difference = newQuantity - existingItem.quantity;
+            let result = existingItem.product.quantity;
+
+            if (difference > 0) {
+                result -= difference;
+            } else if (difference < 0) {
+                result += -difference;
+            }
+
+            if (result < 0) {
+                result = 0;
+            }
+
+            this.cart.cartItems = this.cart.cartItems.map((cart) => {
+                if (cart.product.id === product.id) {
+                    return {
+                        ...cart,
+                        product: {
+                            ...cart.product,
+                            quantity: result,
+                        },
+                        quantity: newQuantity,
+                    };
+                }
+                return cart;
+            });
+
             // Update the quantity of the product in the cart
             existingItem.quantity = newQuantity;
 
@@ -61,6 +88,7 @@ export class CartService {
 
         // Emit the new length of the cart
         this.cartSubject.next(this.cart.cartItems.length);
+        console.log(this.cart.cartItems);
     }
 
     getCartItems(): Observable<CartItem[]> {
