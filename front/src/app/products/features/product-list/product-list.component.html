@@ -1,7 +1,11 @@
 <h1 class="text-center">Liste des produits</h1>
 
-<p-dataView #dv [value]="products()">
+<p-dataView #dv [value]="products()" [rows]="5" [paginator]="true" filterBy="name">
     <ng-template pTemplate="list" let-products>
+        <span class="p-input-icon-left mb-4">
+            <i class="pi pi-search"></i>
+            <input pInputText type="search" placeholder="Search by Name" (input)="applyFilterGlobal($event)">
+        </span>
         <div class="grid">
             @for (product of products; track product) {
             <p-card class="flex-wrap col-6 sm:col-4 md:col-2">
