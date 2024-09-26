@@ -48,6 +48,7 @@ export class CartService {
             const difference = newQuantity - existingItem.quantity;
             let result = existingItem.product.quantity;
 
+            // If the difference between the new quantity and the existing quantity is positive, subtract the difference from the product quantity
             if (difference > 0) {
                 result -= difference;
             } else if (difference < 0) {
@@ -58,19 +59,13 @@ export class CartService {
                 result = 0;
             }
 
-            this.cart.cartItems = this.cart.cartItems.map((cart) => {
-                if (cart.product.id === product.id) {
-                    return {
-                        ...cart,
-                        product: {
-                            ...cart.product,
-                            quantity: result,
-                        },
-                        quantity: newQuantity,
-                    };
-                }
-                return cart;
-            });
+            product.quantity = result;
+
+            this.cart.cartItems = this.cart.cartItems.map(cart =>
+                cart.product.id === product.id
+                    ? { ...cart, ...product, quantity: newQuantity }
+                    : cart
+            );
 
             // Update the quantity of the product in the cart
             existingItem.quantity = newQuantity;
@@ -88,7 +83,6 @@ export class CartService {
 
         // Emit the new length of the cart
         this.cartSubject.next(this.cart.cartItems.length);
-        console.log(this.cart.cartItems);
     }
 
     getCartItems(): Observable<CartItem[]> {

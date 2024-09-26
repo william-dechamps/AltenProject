@@ -1,7 +1,7 @@
 import { Injectable, inject, signal } from "@angular/core";
 import { Product } from "./product.model";
 import { HttpClient } from "@angular/common/http";
-import { catchError, Observable, tap } from "rxjs";
+import { catchError, Observable, of, tap } from "rxjs";
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -15,11 +15,12 @@ export class ProductsService {
     public readonly products = this._products.asReadonly();
 
     public get(): Observable<Product[]> {
-        return this.http.get<Product[]>(this.API_PATH + "/products/getproducts").pipe(
-            catchError((error) => {
-                return [];
-            }),
-            tap((products) => this._products.set(products)),
-        );
+        if (this._products().length === 0) {
+            return this.http.get<Product[]>(this.API_PATH + "/products/getproducts").pipe(
+                catchError(() => of([])),
+                tap((products) => this._products.set(products))
+            );
+        }
+        return of(this._products());
     }
 }
