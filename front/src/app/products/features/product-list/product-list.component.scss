@@ -8,3 +8,8 @@
     display: flex;
     justify-content: center;
 }
+
+::ng-deep .p-inputnumber .p-inputtext {
+    width: 60px;
+    text-align: center;
+}

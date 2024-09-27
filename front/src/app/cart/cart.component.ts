@@ -1,7 +1,6 @@
 import {
     Component,
     inject,
-    OnInit,
 } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { CartService } from "./cart.service";
@@ -20,13 +19,9 @@ import { AsyncPipe } from "@angular/common";
     standalone: true,
     imports: [DataViewModule, RouterModule, CardModule, ButtonModule, InputNumberModule, AsyncPipe, FormsModule],
 })
-export class CartComponent implements OnInit {
+export class CartComponent {
     private readonly cartService = inject(CartService);
     public productsInCart = this.cartService.cart$;
-
-    ngOnInit() {
-        this.cartService.getCartItems().subscribe();
-    }
 
     onQuantityChange(cartItem: CartItem, newQuantity: number) {
         this.cartService.updateCart(cartItem.product, newQuantity);

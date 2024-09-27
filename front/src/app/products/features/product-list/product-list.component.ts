@@ -8,13 +8,16 @@ import { DataViewModule } from 'primeng/dataview';
 import { TagModule } from 'primeng/tag';
 import { InputTextModule } from "primeng/inputtext";
 import { DataView } from "primeng/dataview";
+import { InputNumberModule } from "primeng/inputnumber";
+import { FormsModule } from "@angular/forms";
+import { AsyncPipe, CommonModule } from "@angular/common";
 
 @Component({
   selector: "app-product-list",
   templateUrl: "./product-list.component.html",
   styleUrls: ["./product-list.component.scss"],
   standalone: true,
-  imports: [DataViewModule, CardModule, ButtonModule, TagModule, InputTextModule],
+  imports: [DataViewModule, CardModule, ButtonModule, TagModule, InputTextModule, InputNumberModule, FormsModule, AsyncPipe, CommonModule],
 })
 export class ProductListComponent implements OnInit {
   @ViewChild('dv') dv: DataView | undefined;
@@ -34,5 +37,13 @@ export class ProductListComponent implements OnInit {
   applyFilterGlobal($event: Event, filterMatchMode: string = "contains") {
     const inputValue = ($event.target as HTMLInputElement).value;
     this.dv!.filter(inputValue, filterMatchMode);
+  }
+
+  getProductQuantityInCart(productId: number) {
+    return this.cartService.getProductQuantityInCart(productId);
+  }
+
+  onQuantityChange(product: Product, newQuantity: number) {
+    this.cartService.updateCart(product, newQuantity);
   }
 }
