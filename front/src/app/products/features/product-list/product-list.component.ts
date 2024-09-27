@@ -10,14 +10,14 @@ import { InputTextModule } from "primeng/inputtext";
 import { DataView } from "primeng/dataview";
 import { InputNumberModule } from "primeng/inputnumber";
 import { FormsModule } from "@angular/forms";
-import { AsyncPipe, CommonModule } from "@angular/common";
+import { CommonModule } from "@angular/common";
 
 @Component({
   selector: "app-product-list",
   templateUrl: "./product-list.component.html",
   styleUrls: ["./product-list.component.scss"],
   standalone: true,
-  imports: [DataViewModule, CardModule, ButtonModule, TagModule, InputTextModule, InputNumberModule, FormsModule, AsyncPipe, CommonModule],
+  imports: [DataViewModule, CardModule, ButtonModule, TagModule, InputTextModule, InputNumberModule, FormsModule, CommonModule],
 })
 export class ProductListComponent implements OnInit {
   @ViewChild('dv') dv: DataView | undefined;
