@@ -85,6 +85,14 @@ export class CartService {
         this.cartSubject.next(this.cart.cartItems.length);
     }
 
+    getProductQuantityInCart(productId: number): number {
+        const existingItem = this.cart.cartItems.find(
+            (cart) => cart.product.id === productId
+        )
+
+        return existingItem ? existingItem.quantity : 0;
+    }
+
     getCartItems(): Observable<CartItem[]> {
         return this.cart$;
     }
